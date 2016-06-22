@@ -30,9 +30,14 @@ public class WechatPayApiClient extends ApiRequestor implements WechatPayApi {
 		this.apiurl = PropertyUtils.readProperties("/wechat-pay-api.properties", APIURL.class);
 	}
 
+	/**
+	 * 统一下单
+	 */
 	@Override
 	public UnifiedOrderResponseEntity unifiedOrder(UnifiedOrderRequestEntity unifiedOrderRequestEntity) {
 		log.debug("client deal unified order");
-		return super.api(wechatConfiguration, apiurl.UNIFIED_ORDER, unifiedOrderRequestEntity, UnifiedOrderResponseEntity.class);
+		unifiedOrderRequestEntity.setAppid(wechatConfiguration.getAppid());
+		unifiedOrderRequestEntity.setMchId(wechatConfiguration.getMchId());
+		return super.api(apiurl.UNIFIED_ORDER, unifiedOrderRequestEntity, UnifiedOrderResponseEntity.class);
 	}
 }

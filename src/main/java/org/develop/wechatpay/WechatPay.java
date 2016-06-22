@@ -7,8 +7,15 @@ import org.develop.wechatpay.entity.WechatPayNotifyResponseEntity;
 import org.develop.wechatpay.utils.Assert;
 import org.develop.wechatpay.utils.PropertyUtils;
 
+/**
+ * 微信支付
+ * 
+ * @author qiuzhenhao
+ *
+ */
 public final class WechatPay {
 
+	/* 默认的配置文件 */
 	public static final String DEFAULT_PROPERTIES = "/wechat-pay.properties";
 
 	/**

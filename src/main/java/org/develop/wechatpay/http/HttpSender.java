@@ -12,13 +12,14 @@ import org.apache.commons.io.IOUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * HTTP请求发送器
+ * 
+ * @author qiuzhenhao
+ *
+ */
 @Slf4j
 public class HttpSender implements HttpSendable {
-
-	@Override
-	public HttpResponse get(String url) {
-		return null;
-	}
 
 	@Override
 	public HttpResponse postHttps(String urlStr, String raw) throws IOException, NoSuchAlgorithmException, KeyManagementException {

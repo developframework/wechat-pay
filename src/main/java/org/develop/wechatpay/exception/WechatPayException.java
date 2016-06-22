@@ -2,6 +2,12 @@ package org.develop.wechatpay.exception;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 微信支付异常
+ * 
+ * @author qiuzhenhao
+ *
+ */
 @Slf4j
 public class WechatPayException extends RuntimeException {
 

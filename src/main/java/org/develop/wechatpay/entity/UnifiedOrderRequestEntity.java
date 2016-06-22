@@ -21,6 +21,18 @@ public class UnifiedOrderRequestEntity extends RequestEntity {
 
 	private static final long serialVersionUID = -4813345279067710569L;
 
+	/* 公众账号ID */
+	@XmlElement(value = "appid")
+	private String appid;
+
+	/* 商户号 */
+	@XmlElement(value = "mch_id")
+	private String mchId;
+
+	/* 设备号 */
+	@XmlElement(value = "device_info")
+	private String deviceInfo;
+
 	/* 随机字符串 */
 	@XmlElement(value = "nonce_str", notNull = true)
 	private String nonceStr;

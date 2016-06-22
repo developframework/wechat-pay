@@ -6,6 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * 配置
+ * 
+ * @author qiuzhenhao
+ *
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,10 +24,6 @@ public class WechatConfiguration {
 	/* 商户号 */
 	@Property(key = "wechat.info.mch_id")
 	private String mchId;
-
-	/* 设备号 */
-	@Property(key = "wechat.info.device_info")
-	private String deviceInfo;
 
 	/* 日志打印XML美化 */
 	@Property(key = "wechat.config.xml_pretty")

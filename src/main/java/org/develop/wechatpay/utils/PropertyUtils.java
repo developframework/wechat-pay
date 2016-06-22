@@ -11,8 +11,21 @@ import org.develop.wechatpay.annotation.Property;
 
 import lombok.Cleanup;
 
+/**
+ * 属性文件工具
+ * 
+ * @author qiuzhenhao
+ *
+ */
 public final class PropertyUtils {
 
+	/**
+	 * 把属性读入指定类
+	 * 
+	 * @param propertyfilename
+	 * @param clazz
+	 * @return
+	 */
 	public static <T> T readProperties(String propertyfilename, Class<T> clazz) {
 
 		Properties pps = new Properties();
