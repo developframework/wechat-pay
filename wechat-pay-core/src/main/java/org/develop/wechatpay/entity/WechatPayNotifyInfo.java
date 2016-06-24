@@ -1,13 +1,10 @@
 package org.develop.wechatpay.entity;
 
-import org.develop.wechatpay.annotation.BindingConverter;
 import org.develop.wechatpay.annotation.XmlElement;
 import org.develop.wechatpay.annotation.XmlElementArray;
-import org.develop.wechatpay.converter.WechatPayNotifyRequestXmlConverter;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * 支付结果通知请求实体<br/>
@@ -18,9 +15,7 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString
-@BindingConverter(WechatPayNotifyRequestXmlConverter.class)
-public class WechatPayNotifyRequestEntity {
+public class WechatPayNotifyInfo {
 
 	/* 公众账号ID */
 	@XmlElement(value = "appid", notNull = true)

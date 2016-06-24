@@ -27,6 +27,7 @@ public final class Util {
 	 * @param e
 	 */
 	public static void catchException(Throwable e) {
+		e.printStackTrace();
 		throw new WechatPayException(e);
 	}
 

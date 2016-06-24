@@ -1,8 +1,11 @@
 package org.develop.wechatpay;
 
-import org.develop.wechatpay.converter.WechatPayNotifyRequestXmlConverter;
-import org.develop.wechatpay.converter.WechatPayNotifyResponseXmlConverter;
-import org.develop.wechatpay.entity.WechatPayNotifyRequestEntity;
+import org.develop.wechatpay.converter.BaseAnnotationXmlDeserializer;
+import org.develop.wechatpay.converter.BaseAnnotationXmlSerializer;
+import org.develop.wechatpay.converter.XmlDeserializer;
+import org.develop.wechatpay.converter.XmlSerializer;
+import org.develop.wechatpay.entity.WechatEntity;
+import org.develop.wechatpay.entity.WechatPayNotifyInfo;
 import org.develop.wechatpay.entity.WechatPayNotifyResponseEntity;
 import org.develop.wechatpay.utils.Assert;
 import org.develop.wechatpay.utils.PropertyUtils;
@@ -49,10 +52,10 @@ public final class WechatPay {
 	 * @param xml
 	 * @return
 	 */
-	public static WechatPayNotifyRequestEntity parseWechatPayNotify(String xml) {
+	public static WechatEntity<WechatPayNotifyInfo> parseWechatPayNotify(String xml) {
 		Assert.nonBlank(xml, "xml is required!");
-		WechatPayNotifyRequestXmlConverter converter = new WechatPayNotifyRequestXmlConverter();
-		return converter.toEntity(xml, WechatPayNotifyRequestEntity.class);
+		XmlDeserializer<WechatPayNotifyInfo> xmlDeserializer = new BaseAnnotationXmlDeserializer<>();
+		return xmlDeserializer.deserialize(xml, WechatPayNotifyInfo.class);
 	}
 
 	/**
@@ -64,8 +67,8 @@ public final class WechatPay {
 	public static String makeResponseForNotify(WechatPayNotifyResponseEntity entity) {
 		Assert.nonNull(entity);
 		Assert.nonBlank(entity.getReturnCode(), "returnCode is required!");
-		WechatPayNotifyResponseXmlConverter converter = new WechatPayNotifyResponseXmlConverter();
-		return converter.toXML(entity);
+		XmlSerializer<WechatPayNotifyResponseEntity> xmlSerializer = new BaseAnnotationXmlSerializer<>();
+		return xmlSerializer.serialize(entity, null);
 	}
 
 }

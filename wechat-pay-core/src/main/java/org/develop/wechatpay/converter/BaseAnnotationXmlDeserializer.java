@@ -1,53 +1,39 @@
 package org.develop.wechatpay.converter;
 
-import java.io.IOException;
-import java.io.StringWriter;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.Iterator;
 import java.util.Objects;
 
 import org.develop.wechatpay.annotation.Condition;
-import org.develop.wechatpay.annotation.SignElement;
 import org.develop.wechatpay.annotation.XmlElement;
 import org.develop.wechatpay.annotation.XmlElementArray;
-import org.develop.wechatpay.utils.Assert;
+import org.develop.wechatpay.entity.WechatEntity;
 import org.develop.wechatpay.utils.Util;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.dom4j.io.OutputFormat;
-import org.dom4j.io.XMLWriter;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
- * 基于注解的xml转换器
+ * 基于注解的XML反序列化器
  * 
  * @author qiuzhenhao
  *
- * @param <T>
+ * @param <INFO>
  */
-@Slf4j
-public class BaseAnnotationXmlConverter<T> implements XmlConverter<T> {
+public class BaseAnnotationXmlDeserializer<INFO> extends AbstractXmlComponent implements XmlDeserializer<INFO> {
 
 	@Override
-	public String toXML(T t, String APIKey) {
-		Element root = DocumentHelper.createElement("xml");
-		Document document = DocumentHelper.createDocument(root);
-		checkRequestPropertyValidAndAddElement(root, t, APIKey);
-		printXML(document);
-		return root.asXML();
-	}
-
-	@Override
-	public T toEntity(String xml, Class<T> clazz) {
+	public WechatEntity<INFO> deserialize(String xml, Class<INFO> clazz) {
 		try {
 			Document document = DocumentHelper.parseText(xml);
+			super.printXML(document);
 			Element root = document.getRootElement();
-			T t = dealSinpleEntity(root, clazz);
-			printXML(document);
-			return t;
+			WechatEntity<INFO> entity = makeWechatEntity(root);
+			INFO information = dealSinpleEntity(root, clazz);
+			entity.setInformation(information);
+			return entity;
 		} catch (DocumentException | IllegalArgumentException | IllegalAccessException | InstantiationException e) {
 			Util.catchException(e);
 		}
@@ -55,58 +41,23 @@ public class BaseAnnotationXmlConverter<T> implements XmlConverter<T> {
 	}
 
 	/**
-	 * 检查请求参数有效性并加入节点
-	 * 
-	 * @param request
-	 */
-	protected void checkRequestPropertyValidAndAddElement(Element root, T t, String APIKey) {
-
-		Field sign = null;
-		Field[] fields = t.getClass().getDeclaredFields();
-		for (Field field : fields) {
-			XmlElement xmlElement = field.getAnnotation(XmlElement.class);
-			SignElement signElement = field.getAnnotation(SignElement.class);
-			if (xmlElement == null) {
-				continue;
-			}
-			if (signElement != null) {
-				sign = field;
-				continue;
-			}
-			try {
-				field.setAccessible(true);
-				Object value = field.get(t);
-				if (xmlElement.notNull() && value == null) {
-					String fieldName = field.getName();
-					throw new IllegalArgumentException(fieldName + " must not null!");
-				}
-				addElement(root, xmlElement.value(), value, !xmlElement.notNull());
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		}
-		// 加签名
-		if (sign != null) {
-			XmlElement xmlElement = sign.getAnnotation(XmlElement.class);
-			String signStr = Util.generateSign(t, APIKey);
-			addElement(root, xmlElement.value(), signStr, !xmlElement.notNull());
-		}
-	}
-
-	/**
-	 * 添加节点
+	 * 生成响应实体
 	 * 
 	 * @param root
-	 * @param elementName
-	 * @param obj
-	 * @param allowNull
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
 	 */
-	private void addElement(Element root, String elementName, Object obj, boolean allowNull) {
-		if (obj == null && allowNull) {
-			return;
+	private WechatEntity<INFO> makeWechatEntity(Element root) throws IllegalArgumentException, IllegalAccessException {
+		WechatEntity<INFO> entity = new WechatEntity<>();
+		for (Iterator<Field> iterator = super.iteratorHasXmlAnnotation(WechatEntity.class); iterator.hasNext();) {
+			Field field = iterator.next();
+			field.setAccessible(true);
+			XmlElement xmlElement = field.getAnnotation(XmlElement.class);
+			String text = super.elementText(root, xmlElement);
+			field.set(entity, text);
 		}
-		Assert.nonNull(obj, elementName);
-		root.addElement(elementName).setText(obj.toString());
+		return entity;
 	}
 
 	/**
@@ -120,8 +71,8 @@ public class BaseAnnotationXmlConverter<T> implements XmlConverter<T> {
 	 */
 	private <E> E dealSinpleEntity(Element root, Class<E> clazz) throws InstantiationException, IllegalAccessException {
 		E entity = clazz.newInstance();
-		Field[] fields = clazz.getDeclaredFields();
-		for (Field field : fields) {
+		for (Iterator<Field> iterator = super.iteratorHasXmlAnnotation(clazz); iterator.hasNext();) {
+			Field field = iterator.next();
 			field.setAccessible(true);
 
 			// 获取所有注解
@@ -177,27 +128,6 @@ public class BaseAnnotationXmlConverter<T> implements XmlConverter<T> {
 			}
 		}
 		return entity;
-	}
-
-	/**
-	 * 打印XML
-	 * 
-	 * @param document
-	 */
-	private void printXML(Document document) {
-		if (log.isDebugEnabled()) {
-			OutputFormat format = OutputFormat.createPrettyPrint();
-			format.setExpandEmptyElements(true);
-			format.setSuppressDeclaration(true);
-			StringWriter stringWriter = new StringWriter();
-			XMLWriter writer = new XMLWriter(stringWriter, format);
-			try {
-				writer.write(document);
-				log.debug(stringWriter.toString());
-			} catch (IOException e) {
-				Util.catchException(e);
-			}
-		}
 	}
 
 }

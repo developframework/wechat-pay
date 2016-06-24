@@ -17,7 +17,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class OrderQueryRequestEntity implements Serializable {
+public class OrderQueryRequestEntity extends RequestEntity implements Serializable {
 
 	private static final long serialVersionUID = -5401415320658743354L;
 

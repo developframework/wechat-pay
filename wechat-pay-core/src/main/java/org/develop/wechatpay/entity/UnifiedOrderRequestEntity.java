@@ -1,9 +1,7 @@
 package org.develop.wechatpay.entity;
 
-import org.develop.wechatpay.annotation.BindingConverter;
 import org.develop.wechatpay.annotation.SignElement;
 import org.develop.wechatpay.annotation.XmlElement;
-import org.develop.wechatpay.converter.UnifiedOrderRequestXmlConverter;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +15,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@BindingConverter(UnifiedOrderRequestXmlConverter.class)
 public class UnifiedOrderRequestEntity extends RequestEntity {
 
 	private static final long serialVersionUID = -4813345279067710569L;

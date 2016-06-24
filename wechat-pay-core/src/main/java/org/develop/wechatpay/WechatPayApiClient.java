@@ -1,7 +1,8 @@
 package org.develop.wechatpay;
 
 import org.develop.wechatpay.entity.UnifiedOrderRequestEntity;
-import org.develop.wechatpay.entity.UnifiedOrderResponseEntity;
+import org.develop.wechatpay.entity.UnifiedOrderReturnSuccessResponseInfo;
+import org.develop.wechatpay.entity.WechatEntity;
 import org.develop.wechatpay.utils.Assert;
 import org.develop.wechatpay.utils.PropertyUtils;
 
@@ -34,10 +35,10 @@ public class WechatPayApiClient extends ApiRequestor implements WechatPayApi {
 	 * 统一下单
 	 */
 	@Override
-	public UnifiedOrderResponseEntity unifiedOrder(UnifiedOrderRequestEntity unifiedOrderRequestEntity) {
+	public WechatEntity<UnifiedOrderReturnSuccessResponseInfo> unifiedOrder(UnifiedOrderRequestEntity unifiedOrderRequestEntity) {
 		log.debug("client deal unified order");
 		unifiedOrderRequestEntity.setAppid(wechatConfiguration.getAppid());
 		unifiedOrderRequestEntity.setMchId(wechatConfiguration.getMchId());
-		return super.api(wechatConfiguration, apiurl.UNIFIED_ORDER, unifiedOrderRequestEntity, UnifiedOrderResponseEntity.class);
+		return super.api(wechatConfiguration, apiurl.UNIFIED_ORDER, unifiedOrderRequestEntity, UnifiedOrderReturnSuccessResponseInfo.class);
 	}
 }

@@ -1,8 +1,11 @@
 package org.develop.wechatpay;
 
-import org.develop.wechatpay.annotation.BindingConverter;
-import org.develop.wechatpay.converter.XmlConverter;
+import org.develop.wechatpay.converter.BaseAnnotationXmlDeserializer;
+import org.develop.wechatpay.converter.BaseAnnotationXmlSerializer;
+import org.develop.wechatpay.converter.XmlDeserializer;
+import org.develop.wechatpay.converter.XmlSerializer;
 import org.develop.wechatpay.entity.RequestEntity;
+import org.develop.wechatpay.entity.WechatEntity;
 import org.develop.wechatpay.http.HttpResponse;
 import org.develop.wechatpay.http.HttpSendable;
 import org.develop.wechatpay.http.HttpSender;
@@ -26,14 +29,13 @@ public abstract class ApiRequestor extends HttpSender implements HttpSendable {
 	 * @param clazz
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	protected <RESPONSE> RESPONSE api(WechatConfiguration wechatConfiguration, String url, RequestEntity request, Class<RESPONSE> clazz) {
+	protected <INFO> WechatEntity<INFO> api(WechatConfiguration wechatConfiguration, String url, RequestEntity request, Class<INFO> clazz) {
 		try {
-			XmlConverter<RequestEntity> xmlRequestConverter = request.getClass().getAnnotation(BindingConverter.class).value().newInstance();
-			HttpResponse response = super.postHttps(url, xmlRequestConverter.toXML(request, wechatConfiguration.getApiKey()));
+			XmlSerializer<RequestEntity> xmlRequestSerializer = new BaseAnnotationXmlSerializer<>();
+			HttpResponse response = super.postHttps(url, xmlRequestSerializer.serialize(request, wechatConfiguration.getApiKey()));
 			if (response.isOK()) {
-				XmlConverter<RESPONSE> xmlResponseConverter = clazz.getAnnotation(BindingConverter.class).value().newInstance();
-				return xmlResponseConverter.toEntity(response.getContent(), clazz);
+				XmlDeserializer<INFO> xmlDeserializer = new BaseAnnotationXmlDeserializer<>();
+				return xmlDeserializer.deserialize(response.getContent(), clazz);
 			}
 		} catch (Exception e) {
 			Util.catchException(e);
