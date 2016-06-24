@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author qiuzhenhao
  *
  */
-public class ResponseEntity implements Serializable {
+public abstract class ResponseEntity implements Serializable {
 
 	private static final long serialVersionUID = -2830599944906856244L;
 

@@ -38,6 +38,6 @@ public class WechatPayApiClient extends ApiRequestor implements WechatPayApi {
 		log.debug("client deal unified order");
 		unifiedOrderRequestEntity.setAppid(wechatConfiguration.getAppid());
 		unifiedOrderRequestEntity.setMchId(wechatConfiguration.getMchId());
-		return super.api(apiurl.UNIFIED_ORDER, unifiedOrderRequestEntity, UnifiedOrderResponseEntity.class);
+		return super.api(wechatConfiguration, apiurl.UNIFIED_ORDER, unifiedOrderRequestEntity, UnifiedOrderResponseEntity.class);
 	}
 }

@@ -10,4 +10,7 @@ import org.develop.wechatpay.entity.WechatPayNotifyResponseEntity;
  */
 public class WechatPayNotifyResponseXmlConverter extends BaseAnnotationXmlConverter<WechatPayNotifyResponseEntity> {
 
+	public String toXML(WechatPayNotifyResponseEntity t) {
+		return super.toXML(t, null);
+	}
 }

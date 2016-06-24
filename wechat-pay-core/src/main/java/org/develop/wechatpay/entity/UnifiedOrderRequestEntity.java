@@ -1,6 +1,7 @@
 package org.develop.wechatpay.entity;
 
 import org.develop.wechatpay.annotation.BindingConverter;
+import org.develop.wechatpay.annotation.SignElement;
 import org.develop.wechatpay.annotation.XmlElement;
 import org.develop.wechatpay.converter.UnifiedOrderRequestXmlConverter;
 
@@ -38,6 +39,7 @@ public class UnifiedOrderRequestEntity extends RequestEntity {
 	private String nonceStr;
 
 	/* 签名 */
+	@SignElement
 	@XmlElement(value = "sign", notNull = true)
 	private String sign;
 

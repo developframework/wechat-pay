@@ -15,7 +15,7 @@ public interface XmlConverter<T> {
 	 * @param t
 	 * @return
 	 */
-	public String toXML(T t);
+	public String toXML(T t, String APIKey);
 
 	/**
 	 * 转写成实体

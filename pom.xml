@@ -4,46 +4,21 @@
 	<groupId>com.github.developframework</groupId>
 	<artifactId>wechat-pay</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.16.8</version>
-		</dependency>
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>1.6.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.21</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.1.7</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.5</version>
-		</dependency>
-	</dependencies>
 	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>8</source>
-					<target>8</target>
-					<showWarnings>true</showWarnings>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>wechat-pay-core</module>
+		<module>wechat-pay-spring</module>
+	</modules>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+  			 <groupId>com.github.developframework</groupId>
+  			 <artifactId>wechat-pay-core</artifactId>
+  			 <version>${project.version}</version>
+  		</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

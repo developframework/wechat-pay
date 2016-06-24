@@ -7,6 +7,7 @@ import java.lang.reflect.Field;
 import java.util.Objects;
 
 import org.develop.wechatpay.annotation.Condition;
+import org.develop.wechatpay.annotation.SignElement;
 import org.develop.wechatpay.annotation.XmlElement;
 import org.develop.wechatpay.annotation.XmlElementArray;
 import org.develop.wechatpay.utils.Assert;
@@ -31,10 +32,10 @@ import lombok.extern.slf4j.Slf4j;
 public class BaseAnnotationXmlConverter<T> implements XmlConverter<T> {
 
 	@Override
-	public String toXML(T t) {
+	public String toXML(T t, String APIKey) {
 		Element root = DocumentHelper.createElement("xml");
 		Document document = DocumentHelper.createDocument(root);
-		checkRequestPropertyValidAndAddElement(root, t);
+		checkRequestPropertyValidAndAddElement(root, t, APIKey);
 		printXML(document);
 		return root.asXML();
 	}
@@ -58,12 +59,18 @@ public class BaseAnnotationXmlConverter<T> implements XmlConverter<T> {
 	 * 
 	 * @param request
 	 */
-	protected void checkRequestPropertyValidAndAddElement(Element root, T t) {
+	protected void checkRequestPropertyValidAndAddElement(Element root, T t, String APIKey) {
 
+		Field sign = null;
 		Field[] fields = t.getClass().getDeclaredFields();
 		for (Field field : fields) {
 			XmlElement xmlElement = field.getAnnotation(XmlElement.class);
+			SignElement signElement = field.getAnnotation(SignElement.class);
 			if (xmlElement == null) {
+				continue;
+			}
+			if (signElement != null) {
+				sign = field;
 				continue;
 			}
 			try {
@@ -77,6 +84,12 @@ public class BaseAnnotationXmlConverter<T> implements XmlConverter<T> {
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			}
+		}
+		// 加签名
+		if (sign != null) {
+			XmlElement xmlElement = sign.getAnnotation(XmlElement.class);
+			String signStr = Util.generateSign(t, APIKey);
+			addElement(root, xmlElement.value(), signStr, !xmlElement.notNull());
 		}
 	}
 

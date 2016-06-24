@@ -25,6 +25,9 @@ public class WechatConfiguration {
 	@Property(key = "wechat.info.mch_id")
 	private String mchId;
 
+	@Property(key = "wechat.info.api_key")
+	private String apiKey;
+
 	/* 日志打印XML美化 */
 	@Property(key = "wechat.config.xml_pretty")
 	private boolean logXmlPretty;

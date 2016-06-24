@@ -7,6 +7,7 @@ import org.develop.wechatpay.converter.WechatPayNotifyRequestXmlConverter;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 支付结果通知请求实体<br/>
@@ -17,6 +18,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@ToString
 @BindingConverter(WechatPayNotifyRequestXmlConverter.class)
 public class WechatPayNotifyRequestEntity {
 

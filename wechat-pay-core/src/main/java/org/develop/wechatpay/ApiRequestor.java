@@ -27,10 +27,10 @@ public abstract class ApiRequestor extends HttpSender implements HttpSendable {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	protected <RESPONSE> RESPONSE api(String url, RequestEntity request, Class<RESPONSE> clazz) {
+	protected <RESPONSE> RESPONSE api(WechatConfiguration wechatConfiguration, String url, RequestEntity request, Class<RESPONSE> clazz) {
 		try {
 			XmlConverter<RequestEntity> xmlRequestConverter = request.getClass().getAnnotation(BindingConverter.class).value().newInstance();
-			HttpResponse response = super.postHttps(url, xmlRequestConverter.toXML(request));
+			HttpResponse response = super.postHttps(url, xmlRequestConverter.toXML(request, wechatConfiguration.getApiKey()));
 			if (response.isOK()) {
 				XmlConverter<RESPONSE> xmlResponseConverter = clazz.getAnnotation(BindingConverter.class).value().newInstance();
 				return xmlResponseConverter.toEntity(response.getContent(), clazz);
