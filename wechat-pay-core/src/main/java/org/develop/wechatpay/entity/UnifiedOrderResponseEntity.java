@@ -1,6 +1,7 @@
 package org.develop.wechatpay.entity;
 
 import org.develop.wechatpay.annotation.BindingConverter;
+import org.develop.wechatpay.annotation.Condition;
 import org.develop.wechatpay.annotation.XmlElement;
 import org.develop.wechatpay.converter.UnifiedOrderResponseXmlConverter;
 
@@ -28,4 +29,11 @@ public class UnifiedOrderResponseEntity extends ResponseEntity {
 	/* 返回信息 */
 	@XmlElement("return_msg")
 	protected String returnMsg;
+
+	@Condition(element = "return_code", value = "SUCCESS")
+	public UnifiedOrderReturnSuccessResponseInfo unifiedOrderReturnSuccessResponseInfo;
+
+	public boolean isReturnSuccess() {
+		return "SUCCESS".equals(returnCode);
+	}
 }
