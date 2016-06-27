@@ -1,6 +1,5 @@
 package org.develop.wechatpay.entity;
 
-import org.develop.wechatpay.annotation.Condition;
 import org.develop.wechatpay.annotation.XmlElement;
 
 import lombok.Getter;
@@ -8,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UnifiedOrderReturnSuccessResponseInfo {
+public class ReturnSuccessResponse<T> {
 
 	/* 公众账号ID */
 	@XmlElement("appid")
@@ -42,8 +41,7 @@ public class UnifiedOrderReturnSuccessResponseInfo {
 	@XmlElement("err_code_des")
 	private String errCodeDes;
 
-	@Condition(element = "result_code", value = "SUCCESS")
-	private UnifiedOrderResultSuccessResponseInfo resultSuccessResponseInfo;
+	private T resultSuccessResponseInfo;
 
 	public boolean isResultSuccess() {
 		return "SUCCESS".equals(resultCode);

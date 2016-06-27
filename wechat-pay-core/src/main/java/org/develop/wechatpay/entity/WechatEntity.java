@@ -27,7 +27,7 @@ public class WechatEntity<T> implements Serializable {
 	@XmlElement("return_msg")
 	private String returnMsg;
 
-	private T information;
+	private ReturnSuccessResponse<T> returnSuccessResponse;
 
 	public boolean isReturnSuccess() {
 		return "SUCCESS".equals(returnCode);

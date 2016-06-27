@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UnifiedOrderResultSuccessResponseInfo {
+public class UnifiedOrderInfo {
 
 	/* 交易类型 */
 	@XmlElement("trade_type")

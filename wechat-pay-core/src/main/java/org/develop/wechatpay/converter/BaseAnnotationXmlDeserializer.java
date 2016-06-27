@@ -5,9 +5,9 @@ import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Objects;
 
-import org.develop.wechatpay.annotation.Condition;
 import org.develop.wechatpay.annotation.XmlElement;
 import org.develop.wechatpay.annotation.XmlElementArray;
+import org.develop.wechatpay.entity.ReturnSuccessResponse;
 import org.develop.wechatpay.entity.WechatEntity;
 import org.develop.wechatpay.utils.Util;
 import org.dom4j.Document;
@@ -24,6 +24,7 @@ import org.dom4j.Element;
  */
 public class BaseAnnotationXmlDeserializer<INFO> extends AbstractXmlComponent implements XmlDeserializer<INFO> {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public WechatEntity<INFO> deserialize(String xml, Class<INFO> clazz) {
 		try {
@@ -31,8 +32,14 @@ public class BaseAnnotationXmlDeserializer<INFO> extends AbstractXmlComponent im
 			super.printXML(document);
 			Element root = document.getRootElement();
 			WechatEntity<INFO> entity = makeWechatEntity(root);
-			INFO information = dealSinpleEntity(root, clazz);
-			entity.setInformation(information);
+			if (entity.isReturnSuccess()) {
+				ReturnSuccessResponse<INFO> returnSuccessResponse = dealSinpleEntity(root, ReturnSuccessResponse.class);
+				entity.setReturnSuccessResponse(returnSuccessResponse);
+				if (returnSuccessResponse.isResultSuccess()) {
+					INFO resultSuccessResponseInfo = dealSinpleEntity(root, clazz);
+					returnSuccessResponse.setResultSuccessResponseInfo(resultSuccessResponseInfo);
+				}
+			}
 			return entity;
 		} catch (DocumentException | IllegalArgumentException | IllegalAccessException | InstantiationException e) {
 			Util.catchException(e);
@@ -76,20 +83,8 @@ public class BaseAnnotationXmlDeserializer<INFO> extends AbstractXmlComponent im
 			field.setAccessible(true);
 
 			// 获取所有注解
-			Condition condition = field.getAnnotation(Condition.class);
 			XmlElement xmlElement = field.getAnnotation(XmlElement.class);
 			XmlElementArray xmlElementArray = field.getAnnotation(XmlElementArray.class);
-
-			// 处理@Condition
-			if (Objects.nonNull(condition)) {
-				Element element = root.element(condition.element());
-				if (Objects.nonNull(element)) {
-					String text = root.element(condition.element()).getTextTrim();
-					if (condition.value().equals(text)) {
-						dealSinpleEntity(root, field.getType());
-					}
-				}
-			}
 
 			// 处理@XmlElement
 			if (Objects.nonNull(xmlElement)) {

@@ -13,4 +13,7 @@ public class APIURL {
 	@Property(key = "wechat.pay.api.unifiedorder")
 	public String UNIFIED_ORDER;
 
+	@Property(key = "wechat.pay.api.orderquery")
+	public String ORDER_QUERY;
+
 }

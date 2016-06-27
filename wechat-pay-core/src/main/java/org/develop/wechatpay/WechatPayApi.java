@@ -1,7 +1,9 @@
 package org.develop.wechatpay;
 
+import org.develop.wechatpay.entity.OrderQueryInfo;
+import org.develop.wechatpay.entity.OrderQueryRequestEntity;
+import org.develop.wechatpay.entity.UnifiedOrderInfo;
 import org.develop.wechatpay.entity.UnifiedOrderRequestEntity;
-import org.develop.wechatpay.entity.UnifiedOrderReturnSuccessResponseInfo;
 import org.develop.wechatpay.entity.WechatEntity;
 
 /**
@@ -18,6 +20,14 @@ public interface WechatPayApi {
 	 * @param unifiedOrderRequestEntity
 	 * @return
 	 */
-	public WechatEntity<UnifiedOrderReturnSuccessResponseInfo> unifiedOrder(UnifiedOrderRequestEntity unifiedOrderRequestEntity);
+	public WechatEntity<UnifiedOrderInfo> unifiedOrder(UnifiedOrderRequestEntity unifiedOrderRequestEntity);
+
+	/**
+	 * 查询订单
+	 * 
+	 * @param orderQueryRequestEntity
+	 * @return
+	 */
+	public WechatEntity<OrderQueryInfo> orderQuery(OrderQueryRequestEntity orderQueryRequestEntity);
 
 }

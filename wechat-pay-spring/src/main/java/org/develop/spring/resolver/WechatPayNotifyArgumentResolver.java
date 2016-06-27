@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.IOUtils;
 import org.develop.wechatpay.converter.BaseAnnotationXmlDeserializer;
 import org.develop.wechatpay.converter.XmlDeserializer;
+import org.develop.wechatpay.entity.WechatEntity;
 import org.develop.wechatpay.entity.WechatPayNotifyInfo;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -24,7 +25,7 @@ public class WechatPayNotifyArgumentResolver implements HandlerMethodArgumentRes
 
 	@Override
 	public boolean supportsParameter(MethodParameter methodParameter) {
-		return methodParameter.getParameterType().equals(WechatPayNotifyInfo.class);
+		return methodParameter.getParameterType().equals(WechatEntity.class);
 	}
 
 	@Override

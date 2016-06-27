@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
 
-import org.develop.wechatpay.annotation.Condition;
 import org.develop.wechatpay.annotation.XmlElement;
 import org.develop.wechatpay.annotation.XmlElementArray;
 import org.develop.wechatpay.utils.Util;
@@ -27,7 +26,7 @@ public abstract class AbstractXmlComponent {
 	 * @param document
 	 */
 	protected void printXML(Document document) {
-		if (log.isDebugEnabled()) {
+		if (log.isInfoEnabled()) {
 			OutputFormat format = OutputFormat.createPrettyPrint();
 			format.setExpandEmptyElements(true);
 			format.setSuppressDeclaration(true);
@@ -35,7 +34,7 @@ public abstract class AbstractXmlComponent {
 			XMLWriter writer = new XMLWriter(stringWriter, format);
 			try {
 				writer.write(document);
-				log.debug(stringWriter.toString());
+				log.info(stringWriter.toString());
 			} catch (IOException e) {
 				Util.catchException(e);
 			}
@@ -61,6 +60,6 @@ public abstract class AbstractXmlComponent {
 	 * @return
 	 */
 	protected Iterator<Field> iteratorHasXmlAnnotation(Class<?> clazz) {
-		return Arrays.asList(clazz.getDeclaredFields()).stream().filter(field -> Objects.nonNull(field.getAnnotation(Condition.class)) | Objects.nonNull(field.getAnnotation(XmlElement.class)) | Objects.nonNull(field.getAnnotation(XmlElementArray.class))).iterator();
+		return Arrays.asList(clazz.getDeclaredFields()).stream().filter(field -> Objects.nonNull(field.getAnnotation(XmlElement.class)) | Objects.nonNull(field.getAnnotation(XmlElementArray.class))).iterator();
 	}
 }
