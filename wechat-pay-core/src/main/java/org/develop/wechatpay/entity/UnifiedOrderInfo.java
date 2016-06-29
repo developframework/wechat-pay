@@ -1,5 +1,7 @@
 package org.develop.wechatpay.entity;
 
+import java.io.Serializable;
+
 import org.develop.wechatpay.annotation.XmlElement;
 
 import lombok.Getter;
@@ -7,7 +9,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UnifiedOrderInfo {
+public class UnifiedOrderInfo implements Serializable {
+
+	private static final long serialVersionUID = -8307374320477267800L;
 
 	/* 交易类型 */
 	@XmlElement("trade_type")

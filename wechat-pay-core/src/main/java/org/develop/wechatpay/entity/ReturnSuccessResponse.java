@@ -1,5 +1,7 @@
 package org.develop.wechatpay.entity;
 
+import java.io.Serializable;
+
 import org.develop.wechatpay.annotation.XmlElement;
 
 import lombok.Getter;
@@ -7,7 +9,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ReturnSuccessResponse<T> {
+public class ReturnSuccessResponse<T> implements Serializable {
+
+	private static final long serialVersionUID = 433964893456293263L;
 
 	/* 公众账号ID */
 	@XmlElement("appid")

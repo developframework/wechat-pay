@@ -1,5 +1,7 @@
 package org.develop.wechatpay.entity;
 
+import java.io.Serializable;
+
 import org.develop.wechatpay.annotation.XmlElement;
 import org.develop.wechatpay.annotation.XmlElementArray;
 
@@ -15,7 +17,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class WechatPayNotifyInfo {
+public class WechatPayNotifyInfo implements Serializable {
+
+	private static final long serialVersionUID = -4409171673622276808L;
 
 	/* 公众账号ID */
 	@XmlElement(value = "appid", notNull = true)
@@ -67,11 +71,11 @@ public class WechatPayNotifyInfo {
 
 	/* 订单金额 */
 	@XmlElement(value = "total_fee", notNull = true)
-	private String totalFee;
+	private Integer totalFee;
 
 	/* 应结订单金额 */
 	@XmlElement(value = "settlement_total_fee")
-	private String settlementTotalFee;
+	private Integer settlementTotalFee;
 
 	/* 货币种类 */
 	@XmlElement(value = "fee_type")
