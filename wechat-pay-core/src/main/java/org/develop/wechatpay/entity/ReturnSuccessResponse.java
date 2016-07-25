@@ -2,6 +2,8 @@ package org.develop.wechatpay.entity;
 
 import java.io.Serializable;
 
+import org.develop.wechatpay.annotation.Entity;
+import org.develop.wechatpay.annotation.SignElement;
 import org.develop.wechatpay.annotation.XmlElement;
 
 import lombok.Getter;
@@ -30,6 +32,7 @@ public class ReturnSuccessResponse<T> implements Serializable {
 	private String nonceStr;
 
 	/* 签名 */
+	@SignElement
 	@XmlElement("sign")
 	private String sign;
 
@@ -45,6 +48,7 @@ public class ReturnSuccessResponse<T> implements Serializable {
 	@XmlElement("err_code_des")
 	private String errCodeDes;
 
+	@Entity
 	private T resultSuccessResponseInfo;
 
 	public boolean isResultSuccess() {

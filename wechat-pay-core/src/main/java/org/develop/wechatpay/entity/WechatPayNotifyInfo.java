@@ -2,6 +2,7 @@ package org.develop.wechatpay.entity;
 
 import java.io.Serializable;
 
+import org.develop.wechatpay.annotation.SignElement;
 import org.develop.wechatpay.annotation.XmlElement;
 import org.develop.wechatpay.annotation.XmlElementArray;
 
@@ -38,6 +39,7 @@ public class WechatPayNotifyInfo implements Serializable {
 	private String nonceStr;
 
 	/* 签名 */
+	@SignElement
 	@XmlElement(value = "sign", notNull = true)
 	private String sign;
 

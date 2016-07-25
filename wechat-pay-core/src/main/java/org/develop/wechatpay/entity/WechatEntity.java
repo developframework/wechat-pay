@@ -2,6 +2,7 @@ package org.develop.wechatpay.entity;
 
 import java.io.Serializable;
 
+import org.develop.wechatpay.annotation.Entity;
 import org.develop.wechatpay.annotation.XmlElement;
 
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class WechatEntity<T> implements Serializable {
 	@XmlElement("return_msg")
 	private String returnMsg;
 
+	@Entity
 	private ReturnSuccessResponse<T> returnSuccessResponse;
 
 	public boolean isReturnSuccess() {
