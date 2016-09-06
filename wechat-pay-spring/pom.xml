@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.github.developframework</groupId>
 		<artifactId>wechat-pay</artifactId>
-		<version>0.0.2</version>
+		<version>0.0.3</version>
 	</parent>
 	<artifactId>wechat-pay-spring</artifactId>
 

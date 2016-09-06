@@ -44,6 +44,7 @@ public abstract class ApiRequestor extends HttpSender implements HttpSendable {
 			if (!Util.checkSign(wechatEntity, wechatConfiguration.getApiKey(), wechatEntity.getReturnSuccessResponse().getSign())) {
 				throw new CheckSignFailedException();
 			}
+			return wechatEntity;
 		}
 		return null;
 	}
