@@ -2,7 +2,6 @@ package org.develop.wechatpay.entity;
 
 import java.io.Serializable;
 
-import org.develop.wechatpay.annotation.SignElement;
 import org.develop.wechatpay.annotation.XmlElement;
 import org.develop.wechatpay.annotation.XmlElementArray;
 
@@ -21,39 +20,6 @@ import lombok.Setter;
 public class WechatPayNotifyInfo implements Serializable {
 
 	private static final long serialVersionUID = -4409171673622276808L;
-
-	/* 公众账号ID */
-	@XmlElement(value = "appid", notNull = true)
-	private String appid;
-
-	/* 商户号 */
-	@XmlElement(value = "mch_id", notNull = true)
-	private String mchId;
-
-	/* 设备号 */
-	@XmlElement(value = "device_info")
-	private String deviceInfo;
-
-	/* 随机字符串 */
-	@XmlElement(value = "nonce_str", notNull = true)
-	private String nonceStr;
-
-	/* 签名 */
-	@SignElement
-	@XmlElement(value = "sign", notNull = true)
-	private String sign;
-
-	/* 业务结果 */
-	@XmlElement(value = "result_code", notNull = true)
-	private String resultCode;
-
-	/* 错误代码 */
-	@XmlElement(value = "err_code")
-	private String errCode;
-
-	/* 错误代码描述 */
-	@XmlElement(value = "err_code_des")
-	private String errCodeDes;
 
 	/* 用户标识 */
 	@XmlElement(value = "openid", notNull = true)
