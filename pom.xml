@@ -1,31 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>com.github.developframework</groupId>
 	<artifactId>wechat-pay</artifactId>
-	<version>0.0.4</version>
 	<packaging>pom</packaging>
-	
+	<version>1.0.0</version>
+
 	<name>Wechat-Pay</name>
 	<url>https://github.com/developframework/wechat-pay</url>
 	<description>The project provide a client for Tencent Wechat Pay.</description>
-	
 
 	<modules>
 		<module>wechat-pay-core</module>
 		<module>wechat-pay-spring</module>
 	</modules>
 	
+	<properties>
+		<properties-scanner.version>1.0.0</properties-scanner.version>
+	</properties>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-  			 <groupId>com.github.developframework</groupId>
-  			 <artifactId>wechat-pay-core</artifactId>
-  			 <version>${project.version}</version>
-  		</dependency>
+				<groupId>com.github.developframework</groupId>
+				<artifactId>wechat-pay-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.developframework</groupId>
+				<artifactId>wechat-pay-spring</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.developframework</groupId>
+				<artifactId>properties-scanner</artifactId>
+				<version>${properties-scanner.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<developers>
 		<developer>
 			<name>qiuzhenhao</name>
@@ -34,7 +49,7 @@
 			<organizationUrl>http://www.developframework.org</organizationUrl>
 		</developer>
 	</developers>
-	
+
 	<issueManagement>
 		<system>GitHub Issues</system>
 		<url>https://github.com/developframework/wechat-pay</url>
@@ -46,14 +61,14 @@
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
-	
+
 	<scm>
 		<connection>scm:git:git@github.com:developframework/wechat-pay.git</connection>
 		<developerConnection>scm:git:git@github.com:developframework/wechat-pay.git</developerConnection>
 		<url>https://github.com/developframework/wechat-pay</url>
-		<tag>0.0.1</tag>
+		<tag>1.0.0</tag>
 	</scm>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -73,7 +88,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
@@ -84,7 +99,7 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-	
+
 	<profiles>
 		<profile>
 			<id>release</id>
