@@ -11,6 +11,9 @@ import com.github.developframework.wechat.pay.http.HttpSendable;
 import com.github.developframework.wechat.pay.utils.SignUtils;
 import lombok.Getter;
 
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 /**
@@ -36,9 +39,8 @@ public class BaseAnnotationXmlProcessor<REQUEST extends RequestXmlBody, RESPONSE
 
     @Override
     public WechatPayBody<RESPONSE> process(final WechatPayConfiguration configuration, REQUEST requestXmlBody) {
-        final String xml = xmlSerializer.serialize(requestXmlBody);
         try {
-            HttpResponse httpResponse = super.postHttps(url, xml);
+            HttpResponse httpResponse = onlyHttpProcess(requestXmlBody);
             if (httpResponse.isOK()) {
                 // http请求成功
                 listenerOptional.ifPresent(listener -> listener.httpSuccess(configuration, httpResponse));
@@ -61,5 +63,11 @@ public class BaseAnnotationXmlProcessor<REQUEST extends RequestXmlBody, RESPONSE
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public HttpResponse onlyHttpProcess(REQUEST requestXmlBody) throws NoSuchAlgorithmException, IOException, KeyManagementException {
+        final String xml = xmlSerializer.serialize(requestXmlBody);
+        return super.postHttps(url, xml);
     }
 }

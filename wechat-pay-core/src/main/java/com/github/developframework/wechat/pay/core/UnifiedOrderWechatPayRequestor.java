@@ -1,7 +1,12 @@
 package com.github.developframework.wechat.pay.core;
 
-/**
- * Created by Administrator on 2017/1/19.
- */
-public class UnifiedOrderWechatPayRequestor {
+import com.github.developframework.wechat.pay.entity.UnifiedOrderRequestXmlBody;
+import com.github.developframework.wechat.pay.entity.UnifiedOrderResponseXmlBody;
+import com.github.developframework.wechat.pay.xml.XmlProcessor;
+
+public class UnifiedOrderWechatPayRequestor extends SimpleWechatPayRequestor<UnifiedOrderRequestXmlBody, UnifiedOrderResponseXmlBody> {
+
+    public UnifiedOrderWechatPayRequestor(XmlProcessor<UnifiedOrderRequestXmlBody, UnifiedOrderResponseXmlBody> xmlProcessor, WechatPayConfiguration configuration) {
+        super(xmlProcessor, configuration);
+    }
 }

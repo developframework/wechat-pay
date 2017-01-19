@@ -4,13 +4,14 @@ import lombok.Getter;
 import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlElement;
+import java.io.Serializable;
 
 /**
  * 代金券
  */
 @Getter
 @ToString
-public class Coupon {
+public class Coupon implements Serializable {
 
     /* 代金券批次ID */
     @XmlElement(name = "coupon_batch_id_$n")

@@ -2,12 +2,19 @@ package com.github.developframework.wechat.pay.core;
 
 import lombok.Getter;
 import lombok.Setter;
+@Getter
+@Setter
+public class TableResponseXmlBody extends ResponseXmlBody{
 
-public class StreamResponseXmlBody extends ResponseXmlBody{
-
-    @Getter
-    @Setter
     protected String sourceContent;
+
+    protected String returnCode;
+
+    protected String returnMsg;
+
+    public boolean isOK() {
+        return returnCode == null;
+    }
 
 
 }

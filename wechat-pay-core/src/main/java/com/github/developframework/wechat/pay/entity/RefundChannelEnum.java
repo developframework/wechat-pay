@@ -1,7 +1,10 @@
 package com.github.developframework.wechat.pay.entity;
 
 /**
- * Created by Administrator on 2016/9/20.
+ * 退款渠道枚举
  */
 public enum RefundChannelEnum {
+
+    ORIGINAL, //原路退款
+    BALANCE //退回到余额
 }

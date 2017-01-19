@@ -5,6 +5,11 @@ import com.github.developframework.wechat.pay.core.WechatPayConfiguration;
 import com.github.developframework.wechat.pay.core.RequestXmlBody;
 import com.github.developframework.wechat.pay.core.ResponseXmlBody;
 import com.github.developframework.wechat.pay.core.WechatPayBody;
+import com.github.developframework.wechat.pay.http.HttpResponse;
+
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * 抽象XML处理器
@@ -23,4 +28,6 @@ public abstract class XmlProcessor<REQUEST extends RequestXmlBody, RESPONSE exte
     }
 
     public abstract WechatPayBody<RESPONSE> process(WechatPayConfiguration configuration, REQUEST requestXmlBody);
+
+    public abstract HttpResponse onlyHttpProcess(REQUEST requestXmlBody) throws NoSuchAlgorithmException, IOException, KeyManagementException;
 }

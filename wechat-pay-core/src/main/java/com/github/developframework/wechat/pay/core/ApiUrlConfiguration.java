@@ -15,4 +15,13 @@ public class ApiUrlConfiguration {
 
     @ScanProperty(alias = "closeorder")
     public String CLOSE_ORDER;
+
+    @ScanProperty(alias = "refund")
+    public String REFUND;
+
+    @ScanProperty(alias = "refundquery")
+    public String REFUND_QUERY;
+
+    @ScanProperty(alias = "downloadbill")
+    public String DOWNLOAD_BILL;
 }

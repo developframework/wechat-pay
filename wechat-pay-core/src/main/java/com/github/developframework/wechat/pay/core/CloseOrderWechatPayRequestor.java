@@ -1,12 +1,12 @@
 package com.github.developframework.wechat.pay.core;
 
-import com.github.developframework.wechat.pay.entity.UnifiedOrderRequestXmlBody;
-import com.github.developframework.wechat.pay.entity.UnifiedOrderResponseXmlBody;
+import com.github.developframework.wechat.pay.entity.CloseOrderRequestXmlBody;
+import com.github.developframework.wechat.pay.entity.CloseOrderResponseXmlBody;
 import com.github.developframework.wechat.pay.xml.XmlProcessor;
 
-public class UnifiedOrderWechatPayRequestor extends SimpleWechatPayRequestor<UnifiedOrderRequestXmlBody, UnifiedOrderResponseXmlBody> {
+public class CloseOrderWechatPayRequestor extends SimpleWechatPayRequestor<CloseOrderRequestXmlBody, CloseOrderResponseXmlBody> {
 
-    public UnifiedOrderWechatPayRequestor(XmlProcessor xmlProcessor, WechatPayConfiguration configuration) {
+    public CloseOrderWechatPayRequestor(XmlProcessor<CloseOrderRequestXmlBody, CloseOrderResponseXmlBody> xmlProcessor, WechatPayConfiguration configuration) {
         super(xmlProcessor, configuration);
     }
 }

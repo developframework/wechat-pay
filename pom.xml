@@ -6,7 +6,7 @@
 	<groupId>com.github.developframework</groupId>
 	<artifactId>wechat-pay</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<name>Wechat-Pay</name>
 	<url>https://github.com/developframework/wechat-pay</url>

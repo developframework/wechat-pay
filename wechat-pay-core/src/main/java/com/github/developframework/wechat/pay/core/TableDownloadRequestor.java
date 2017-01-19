@@ -3,7 +3,7 @@ package com.github.developframework.wechat.pay.core;
 /**
  * 文件下载请求接口
  */
-public interface FileDownloadRequestor<REQUEST extends RequestXmlBody> {
+public interface TableDownloadRequestor<REQUEST extends RequestXmlBody> {
 
-    StreamResponseXmlBody request(REQUEST body);
+    TableResponseXmlBody request(REQUEST body, Class<? extends TableResponseXmlBody> clazz);
 }

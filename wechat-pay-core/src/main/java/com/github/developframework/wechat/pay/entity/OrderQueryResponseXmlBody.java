@@ -2,6 +2,8 @@ package com.github.developframework.wechat.pay.entity;
 
 import com.github.developframework.wechat.pay.annotation.XmlElementArray;
 import com.github.developframework.wechat.pay.core.ResponseXmlBody;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -11,6 +13,8 @@ import javax.xml.bind.annotation.XmlElement;
  * @author qiuzhenhao
  *
  */
+@Getter
+@Setter
 public class OrderQueryResponseXmlBody extends ResponseXmlBody {
 
 	/* 用户标识 */
